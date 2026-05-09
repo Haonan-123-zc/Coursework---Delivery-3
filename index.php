@@ -13,12 +13,13 @@ session_start();
 <header>
   <div class="logo">OCS</div>
   <h1>Online Car Sale</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="seller.html">Seller</a>
-    <a href="search.html">Search</a>
+<nav>
+    <a href="index.php">Home</a>
+    <a href="search.php">Search Cars</a>
+    <a href="seller.php">Sell Car</a>
+    <a href="register.html">Register</a>
     <a href="login.html">Login</a>
-  </nav>
+</nav>
 </header>
 
   <main>
