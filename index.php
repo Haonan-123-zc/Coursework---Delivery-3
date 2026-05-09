@@ -26,7 +26,7 @@ session_start();
     <section>
       <h2>Find Your Ideal Car</h2>
       <p>Welcome to our online car sale website. We help buyers search for cars and sellers advertise their vehicles easily.</p>
-      <p><a href="search.html">Browse Cars</a></p>
+      <p><a href="search.php">Browse Cars</a></p>
     </section>
 
     <section>
