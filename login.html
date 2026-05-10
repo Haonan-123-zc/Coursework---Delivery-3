@@ -1,93 +1,139 @@
-<!doctype html>
-<html lang='en'>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset='utf-8'>
-<meta name='viewport' content='initial-scale=1, width=device-width'>
-<title>Login | OCS Platform</title>
-<style>
-    html { min-height: 100%; }
-    body { margin: 0px; padding: 0px; background: transparent !important; display: grid; place-items: center; min-height: 100vh; font-family: Tahoma, sans-serif; box-sizing: border-box; }
-    ._ocs_top_bar { z-index: 9999; background: #111; padding: 15px 40px; justify-content: space-between; align-items: center; display: flex; width: 100%; left: 0; top: 0; position: fixed; box-sizing: border-box; }
-    ._wrap_brand { color: white; align-items: center; display: flex; text-decoration: none; }
-    ._icn_logo { font-weight: 700; font-size: 14px; color: black; background: white; align-items: center; justify-content: center; display: flex; border-radius: 50%; height: 40px; width: 40px; }
-    ._txt_title { color: white; font-weight: 700; font-size: 24px; margin-left: 15px; }
-    ._ocs_top_bar a.nav-link { font-size: 16px; margin-left: 20px; font-weight: 700; color: white; text-decoration: none; }
-    ._ocs_top_bar a.nav-link:hover { text-decoration: underline; }
-    ._video_bg_ { z-index: -999; object-fit: cover; height: 100vh; width: 100vw; left: 0; top: 0; position: fixed; }
-    ._auth_box { margin-top: 80px; position: relative; z-index: 10; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-radius: 12px; background: rgba(245,245,245,0.95); padding: 40px; max-width: 500px; width: 100%; }
-    ._auth_box h2 { font-size: 26px; margin-bottom: 25px; margin-top: 0; color: midnightblue; text-align: center; }
-    ._row_inp { margin-bottom: 18px; }
-    ._row_inp input { outline: none; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 14px; box-sizing: border-box; width: 100%; }
-    ._msg_err { min-height: 16px; margin-top: 4px; display: block; font-size: 12px; }
-    ._btn_do_log { margin-top: 20px; cursor: pointer; font-weight: 700; font-size: 16px; border-radius: 6px; border: none; color: white; background: dodgerblue; padding: 15px; width: 100%; }
-    ._box_links { margin-top: 20px; text-align: center; }
-    ._box_links a { text-decoration: none; font-size: 14px; color: dodgerblue; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car System Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            background-image: url(https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bg-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .login-card {
+            position: relative;
+            z-index: 2;
+            width: 400px;
+            padding: 45px 35px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .login-card h2 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 35px;
+            font-size: 30px;
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            margin-bottom: 22px;
+        }
+
+        .input-group input {
+            width: 100%;
+            height: 50px;
+            padding: 0 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .error-text {
+            color: #ff3333;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 50px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .login-btn:hover {
+            background-color: #005fc5;
+        }
+    </style>
 </head>
 <body>
+    <div class="bg-mask"></div>
 
-<div class='_ocs_top_bar'>
-    <a href=' ' class='_wrap_brand'>
-        <div class='_icn_logo'>OCS</div>
-        <div class='_txt_title'>Online Car Sale</div>
-    </a >
-    <div>
-        <a class='nav-link' href='index.html'>Home</a >
-        <a class='nav-link' href='seller.html'>Seller</a >
-        <a class='nav-link' href='search.html'>Search</a >
-        <a class='nav-link' href='login.html'>Login</a >
+    <div class="login-card">
+        <h2>Member Login</h2>
+
+        <!-- 关键修改：加上form标签，action指向login.php -->
+        <form action="login.php" method="POST">
+            <div class="input-group">
+                <!-- 加上name属性，后端才能获取到值 -->
+                <input type="text" id="account" name="account" placeholder="Account (A-Z a-z 0-9, ≥8 digits)" required>
+                <div class="error-text" id="accError">Only letters & numbers, at least 8 characters</div>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="pwd" name="pwd" placeholder="Password (A-Z a-z 0-9, ≥8 digits)" required>
+                <div class="error-text" id="pwdError">Only letters & numbers, at least 8 characters</div>
+            </div>
+
+            <button class="login-btn" type="submit">Sign In</button>
+        </form>
     </div>
-</div>
 
-<video autoplay muted loop playsinline class='_video_bg_'>
-    <source src='background.mp4' type='video/mp4'>
-</video>
+    <script>
+        const rule = /^[A-Za-z0-9]{8,}$/;
 
-<div class='_auth_box'>
-    <h2>Account Login</h2>
-    <form action="login.php" method="post">
-        <div class='_row_inp'>
-            <input type='text' name="username" id='v_usr' placeholder='Input username please' onkeyup='ev_u()'>
-            <span id='m_usr' class='_msg_err'></span>
-        </div>
-        <div class='_row_inp'>
-            <input type='password' name="password" id='v_pwd' placeholder='Input password please' onkeyup='ev_p()'>
-            <span id='m_pwd' class='_msg_err'></span>
-        </div>
-        <button type="submit" class='_btn_do_log'>Log In</button>
-    </form>
-    <div class='_box_links'>
-        <a href='registration.html'>No account? Register here</a >
-    </div>
-</div>
+        const account = document.getElementById('account');
+        const pwd = document.getElementById('pwd');
+        const accError = document.getElementById('accError');
+        const pwdError = document.getElementById('pwdError');
 
-<script>
-    var $id = function(x) { return document.getElementById(x); };
-    function ev_u() {
-        var str = $id('v_usr').value;
-        var node = $id('m_usr');
-        if(str === '') { node.innerHTML = ''; return; }
-        if(/^[a-zA-Z0-9]{1,12}$/.test(str)) { 
-            node.style.color = 'green'; 
-            node.innerHTML = 'Username valid'; 
-        } else { 
-            node.style.color = 'red'; 
-            node.innerHTML = 'Max 12 digits, no special characters'; 
-        }
-    }
-    function ev_p() {
-        var str = $id('v_pwd').value;
-        var node = $id('m_pwd');
-        if(str === '') { node.innerHTML = ''; return; }
-        if(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/.test(str)) { 
-            node.style.color = 'green'; 
-            node.innerHTML = 'Password format correct'; 
-        } else { 
-            node.style.color = 'red'; 
-            node.innerHTML = 'At least 6 digits, include number, uppercase & lowercase'; 
-        }
-    }
-</script>
+        account.addEventListener('input', () => {
+            rule.test(account.value) ? accError.style.display = 'none' : accError.style.display = 'block';
+        })
 
+        pwd.addEventListener('input', () => {
+            rule.test(pwd.value) ? pwdError.style.display = 'none' : pwdError.style.display = 'block';
+        })
+    </script>
 </body>
 </html>

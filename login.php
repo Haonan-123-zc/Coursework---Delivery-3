@@ -1,36 +1,34 @@
 <?php
-// 用 __DIR__ 确保 100% 找到 config.php
-require __DIR__ . '/config.php';
+session_start();
+require 'config.php';
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // 获取表单数据
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
-
-    // 准备 SQL 查询
-    $sql = "SELECT id, password FROM users WHERE username = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "s", $username);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_store_result($stmt);
-    mysqli_stmt_bind_result($stmt, $user_id, $hashed_password);
-    mysqli_stmt_fetch($stmt);
-
-    // 验证账号密码
-    if (mysqli_stmt_num_rows($stmt) > 0 && password_verify($password, $hashed_password)) {
-        // 登录成功，设置 session
-        $_SESSION['user_id'] = $user_id;
-        $_SESSION['username'] = $username;
-        // 跳转到首页
-        header("Location: index.html");
-        exit();
-    } else {
-        // 登录失败
-        echo "<script>alert('Wrong username or password');history.back();</script>";
-    }
-
-    mysqli_stmt_close($stmt);
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header("Location: login.html");
+    exit();
 }
 
-mysqli_close($conn);
+$account = $_POST['account'];
+$pwd = $_POST['pwd'];
+
+$rule = '/^[A-Za-z0-9]{8,}$/';
+if (!preg_match($rule, $account) || !preg_match($rule, $pwd)) {
+    echo "<script>alert('Invalid account or password format'); history.back();</script>";
+    exit();
+}
+
+$sql = "SELECT id, username, password FROM users WHERE username = :account LIMIT 1";
+$stmt = $pdo->prepare($sql);
+$stmt->bindParam(':account', $account);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if ($user && password_verify($pwd, $user['password'])) {
+    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['username'] = $user['username'];
+    header("Location: index.html");
+    exit();
+} else {
+    echo "<script>alert('Incorrect account or password'); history.back();</script>";
+    exit();
+}
 ?>
