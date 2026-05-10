@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='initial-scale=1, width=device-width'>
+<title>Login | OCS Platform</title>
+<style>
+    html { min-height: 100%; }
+    body { margin: 0px; padding: 0px; background: transparent !important; display: grid; place-items: center; min-height: 100vh; font-family: Tahoma, sans-serif; box-sizing: border-box; }
+    ._ocs_top_bar { z-index: 9999; background: #111; padding: 15px 40px; justify-content: space-between; align-items: center; display: flex; width: 100%; left: 0; top: 0; position: fixed; box-sizing: border-box; }
+    ._wrap_brand { color: white; align-items: center; display: flex; text-decoration: none; }
+    ._icn_logo { font-weight: 700; font-size: 14px; color: black; background: white; align-items: center; justify-content: center; display: flex; border-radius: 50%; height: 40px; width: 40px; }
+    ._txt_title { color: white; font-weight: 700; font-size: 24px; margin-left: 15px; }
+    ._ocs_top_bar a.nav-link { font-size: 16px; margin-left: 20px; font-weight: 700; color: white; text-decoration: none; }
+    ._ocs_top_bar a.nav-link:hover { text-decoration: underline; }
+    ._video_bg_ { z-index: -999; object-fit: cover; height: 100vh; width: 100vw; left: 0; top: 0; position: fixed; }
+    ._auth_box { margin-top: 80px; position: relative; z-index: 10; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-radius: 12px; background: rgba(245,245,245,0.95); padding: 40px; max-width: 500px; width: 100%; }
+    ._auth_box h2 { font-size: 26px; margin-bottom: 25px; margin-top: 0; color: midnightblue; text-align: center; }
+    ._row_inp { margin-bottom: 18px; }
+    ._row_inp input { outline: none; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; padding: 14px; box-sizing: border-box; width: 100%; }
+    ._msg_err { min-height: 16px; margin-top: 4px; display: block; font-size: 12px; }
+    ._btn_do_log { margin-top: 20px; cursor: pointer; font-weight: 700; font-size: 16px; border-radius: 6px; border: none; color: white; background: dodgerblue; padding: 15px; width: 100%; }
+    ._box_links { margin-top: 20px; text-align: center; }
+    ._box_links a { text-decoration: none; font-size: 14px; color: dodgerblue; }
+</style>
+</head>
+<body>
+
+<div class='_ocs_top_bar'>
+    <a href=' ' class='_wrap_brand'>
+        <div class='_icn_logo'>OCS</div>
+        <div class='_txt_title'>Online Car Sale</div>
+    </a >
+    <div>
+        <a class='nav-link' href='index.html'>Home</a >
+        <a class='nav-link' href='seller.html'>Seller</a >
+        <a class='nav-link' href='search.html'>Search</a >
+        <a class='nav-link' href='login.html'>Login</a >
+    </div>
+</div>
+
+<video autoplay muted loop playsinline class='_video_bg_'>
+    <source src='background.mp4' type='video/mp4'>
+</video>
+
+<div class='_auth_box'>
+    <h2>Account Login</h2>
+    <form action="login.php" method="post">
+        <div class='_row_inp'>
+            <input type='text' name="username" id='v_usr' placeholder='Input username please' onkeyup='ev_u()'>
+            <span id='m_usr' class='_msg_err'></span>
+        </div>
+        <div class='_row_inp'>
+            <input type='password' name="password" id='v_pwd' placeholder='Input password please' onkeyup='ev_p()'>
+            <span id='m_pwd' class='_msg_err'></span>
+        </div>
+        <button type="submit" class='_btn_do_log'>Log In</button>
+    </form>
+    <div class='_box_links'>
+        <a href='registration.html'>No account? Register here</a >
+    </div>
+</div>
+
+<script>
+    var $id = function(x) { return document.getElementById(x); };
+    function ev_u() {
+        var str = $id('v_usr').value;
+        var node = $id('m_usr');
+        if(str === '') { node.innerHTML = ''; return; }
+        if(/^[a-zA-Z0-9]{1,12}$/.test(str)) { 
+            node.style.color = 'green'; 
+            node.innerHTML = 'Username valid'; 
+        } else { 
+            node.style.color = 'red'; 
+            node.innerHTML = 'Max 12 digits, no special characters'; 
+        }
+    }
+    function ev_p() {
+        var str = $id('v_pwd').value;
+        var node = $id('m_pwd');
+        if(str === '') { node.innerHTML = ''; return; }
+        if(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/.test(str)) { 
+            node.style.color = 'green'; 
+            node.innerHTML = 'Password format correct'; 
+        } else { 
+            node.style.color = 'red'; 
+            node.innerHTML = 'At least 6 digits, include number, uppercase & lowercase'; 
+        }
+    }
+</script>
+
+</body>
+</html>
